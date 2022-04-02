@@ -10,6 +10,7 @@ import { EditorService } from './editor.service';
 export class EditorComponent implements OnInit {
 
   public readonly CONSTANT = CONSTANT;
+  
   showCopied = false;
   editorId = '';
   @Input()  value = '';

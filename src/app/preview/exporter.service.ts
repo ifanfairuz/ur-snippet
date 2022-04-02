@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import html2canvas from 'html2canvas';
+import { DepsService } from '../lib/deps.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,26 +8,33 @@ export class ExporterService {
 
   private readonly mime = 'image/jpg';
 
-  constructor() { }
+  constructor(private deps: DepsService) { }
 
-  export(el: HTMLElement) {
+  async export(el: HTMLElement) {
     try {
-      return new Promise((resolve, reject) => {
-        const oldTransform = el.style.transform;
-        el.style.transform = 'scale(2)';
-        html2canvas(el, {
-          width: 1080,
-          height: 1080,
-          windowWidth: 1080,
-          windowHeight: 1080
-        })
-        .then(canvas => {
-          el.style.transform = oldTransform;
-          this.download(canvas.toDataURL(this.mime), 'ur-snipper-post.jpg');
-          resolve(canvas);
-        })
-        .catch(err => reject(err));
-      })
+      const html2canvas = await this.deps.load('html2canvas');
+      const element = el.cloneNode(true) as HTMLDivElement;
+      element.style.transform = 'scale(1)';
+      element.style.position = 'absolute';
+      element.style.bottom = '100%';
+      element.style.right = '100%';
+      document.body.appendChild(element);
+      return new Promise<HTMLCanvasElement>((resolve, reject) => {
+        setTimeout(async () => {
+          try {
+            const canvas: HTMLCanvasElement = await html2canvas(el, {
+              width: 540,
+              height: 540,
+              scale: 2
+            });
+            element.remove();
+            this.download(canvas.toDataURL(this.mime), 'ur-snipper-post.jpg');
+            return resolve(canvas);
+          } catch (error) {
+            return Promise.reject(error);
+          }
+        }, 1);
+      });
     } catch (error) {
       return Promise.reject(error);
     }

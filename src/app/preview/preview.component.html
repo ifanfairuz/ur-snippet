@@ -14,6 +14,7 @@
         placeholder="languages"
         [options]="languages"
         [(selected)]="language"
+        [loading]="language != '' && !readyHlJsLang[language]"
       ></app-dropdown>
       <div class="hidden md:flex border-r border-white self-stretch my-2"></div>
       <button
@@ -40,6 +41,7 @@
       #preview
       class="preview p-4 flex flex-col justify-evenly"
       [class]="backgroundClass"
+      [style.display]="ready ? 'flex' : 'hidden'"
       [previewAutoscale]="48"
     >
       <div

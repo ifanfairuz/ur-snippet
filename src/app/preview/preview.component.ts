@@ -1,7 +1,8 @@
-import hljs from 'highlight.js';
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CONSTANT } from '../lib/editor.config';
 import { ExporterService } from './exporter.service';
+import deps, { hljsLanguages, hljsMainLanguages } from '../lib/deps.list';
+import { DepsService } from '../lib/deps.service';
 
 @Component({
   selector: 'app-preview',
@@ -10,26 +11,36 @@ import { ExporterService } from './exporter.service';
 })
 export class PreviewComponent implements OnInit {
 
+  public readonly mainLanguages = hljsMainLanguages;
+  public readonly languages = hljsLanguages;
+
   @ViewChild('preview') previewElement!: ElementRef<HTMLDivElement>;
   @Input() value = '';
   backgroundClass = 'gradient-1';
   values: string[] = [''];
-  languages: string[] = [];
   language = '';
+  oldLanguage = '';
   transformStyle = `none`;
   loadingGenerate = false;
-
-  constructor(private exporter: ExporterService) {
-    this.languages = hljs.listLanguages();
+  readyHlJs = false;
+  readyHlJsLang: Record<string, boolean> = {}
+  
+  get ready () {
+    return this.readyHlJs && (
+      this.language && this.language != '' ?
+      this.readyHlJsLang[this.language] :
+      true
+    );
   }
 
+  constructor(private deps: DepsService, private exporter: ExporterService) { }
+
   renderPreview() {
-    const values = this.value.split(CONSTANT.NEW_WINDOW).map(v => v.replace(/^\s+|\s+$/g, '')).filter(v => v);
-    this.values = values.map(v => hljs.highlightAuto(v, [
-      'javascript', 'typescript', 'bash', 'json', 'php',
-      'python', 'css', 'html', 'dart', 'kotlin', 'sql',
-      'swift', 'markdown', 'ruby', 'go', 'java', 'cpp'
-    ]).value);
+    if (this.ready) {
+      const hljs = deps.hljs.resolve<any>();
+      const values = this.value.split(CONSTANT.NEW_WINDOW).map(v => v.replace(/^\s+|\s+$/g, '')).filter(v => v);
+      this.values = values.map(v => hljs.highlightAuto(v, this.language ? [this.language] : this.mainLanguages).value);
+    }
   }
 
   setBackground(i: number) {
@@ -42,10 +53,30 @@ export class PreviewComponent implements OnInit {
     .finally(() => this.loadingGenerate = false);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.deps.load('hljs')
+    .then(() => {
+      this.readyHlJs = true;
+      this.renderPreview();
+    });
+  }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['value']) this.renderPreview();
+  }
+
+  ngDoCheck() {
+    if (this.language !== this.oldLanguage) {
+      if (this.language != '') {
+        this.readyHlJsLang[this.language] = this.deps.highlightJsLangLoaded(this.language);
+        this.deps.highlightJsLangLoad(this.language)
+        .finally(() => {
+          this.readyHlJsLang[this.language] = true;
+          this.renderPreview();
+        });
+      }
+      this.oldLanguage = this.language;
+    }
   }
 
 }

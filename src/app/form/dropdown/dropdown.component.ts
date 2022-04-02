@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Input, Component, OnInit, Output, EventEmitter, TrackByFunction } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DropdownService } from './dropdown.service';
 
@@ -9,6 +9,7 @@ import { DropdownService } from './dropdown.service';
 })
 export class DropdownComponent implements OnInit {
 
+  @Input() loading = false;
   @Input() options: string[] = [];
   @Input() placeholder = 'options';
   @Input() selected = '';
