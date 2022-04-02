@@ -1,0 +1,48 @@
+.preview {
+  height: 540px;
+  width: 540px;
+}
+
+.preview, .picker {
+  &.gradient-1 {
+    background: #4158D0;
+    background: -webkit-linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  }
+  &.gradient-2 {
+    background: #0093E9;
+    background: -webkit-linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    background: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  }
+  &.gradient-3 {
+    background: #AA076B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #61045F, #AA076B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #61045F, #AA076B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  &.gradient-4 {
+    background: #003973;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E5E5BE, #003973); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  &.gradient-5 {
+    background: #86e7d6;  /* fallback for old browsers */
+    background: -webkit-radial-gradient( circle farthest-corner at center,  #538ad6 0%, #86e7d6 90% );
+    background: radial-gradient( circle farthest-corner at center,  #538ad6 0%, #86e7d6 90% );
+  }
+}
+
+.btn-toolbar {
+  height: 11px;
+  width: 11px;
+  border-radius: 100%;
+
+  &.close {
+    background-color: #ff5c5c;
+  }
+  &.minimize {
+    background-color: #ffbd4c;
+  }
+  &.zoom {
+    background-color: #00ca56;
+  }
+}

@@ -1,3 +1,20 @@
-<div class="relative">
-  <div [id]="elementId" class="absolute inset-0"></div>
+<div class="bg-gray-800 h-[80vh] lg:h-full flex flex-col rounded-lg">
+  <div class="flex gap-2 px-4 h-16 text-sm text-white">
+    <div class="flex gap-1 items-center">
+      <strong>{{ CONSTANT.NEW_WINDOW }}</strong>
+      <span class="underline">for split window</span>
+      <button class="p-2 rounded hover:bg-gray-700" [appCopyclip]="CONSTANT.NEW_WINDOW">
+        <svg class="text-xl" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <path d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2Z"/>
+            <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2"/>
+          </g>
+        </svg>
+      </button>
+    </div>
+    <label [class.hidden]="!showCopied" class="p-1">Copied.</label>
+  </div>
+  <div class="relative rounded-lg shadow-lg overflow-hidden flex-1">
+    <div [id]="editorId" class="absolute inset-0 md:text-lg lg:text-xl"></div>
+  </div>
 </div>

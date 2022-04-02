@@ -1,6 +1,8 @@
 export interface Dependency {
   resolve<T>(): T|undefined|null
-  url: string
+  url: string,
+  css?: string,
+  addons?: string[]
 }
 export type DepsList = 'ace';
 const deps: Record<DepsList, Dependency> = {

@@ -1,1 +1,58 @@
-<p>preview works!</p>
+<div class="bg-[#161616] h-full w-full rounded-md flex flex-col gap-4">
+  <div class="bg-gray-800 flex flex-col-reverse md:flex-row p-4 gap-4 md:py-0 md:h-16 md:items-center justify-between rounded-t-md">
+    <div class="flex gap-2">
+      <button
+        *ngFor="let i of [1,2,3,4,5]"
+        class="h-8 w-8 rounded picker border-2 border-gray-700 hover:shadow-lg"
+        [class]="'gradient-'+i"
+        [class.border-gray-100.shadow-lg]="backgroundClass == 'gradient-'+i"
+        (click)="setBackground(i)"
+      ></button>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <app-dropdown
+        placeholder="languages"
+        [options]="languages"
+        [(selected)]="language"
+      ></app-dropdown>
+      <div class="hidden md:flex border-r border-white self-stretch my-2"></div>
+      <button
+        (click)="exportImage()"
+        [disabled]="loadingGenerate"
+        class="h-10 min-w-[40px] px-2 flex items-center justify-center rounded text-white hover:bg-gray-700"
+      >
+        <svg *ngIf="loadingGenerate; else exportIcon" class="text-base animate-spin" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024">
+          <path fill="currentColor" d="M988 548c-19.9 0-36-16.1-36-36c0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 0 0-94.3-139.9a437.71 437.71 0 0 0-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7c26.7 63.1 40.2 130.2 40.2 199.3c.1 19.9-16 36-35.9 36z"/>
+        </svg>
+        <ng-template #exportIcon>
+          <div class="flex items-center gap-1">
+            <svg class="text-2xl" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M22.71 6.29a1 1 0 0 0-1.42 0L20 7.59V2a1 1 0 0 0-2 0v5.59l-1.29-1.3a1 1 0 0 0-1.42 1.42l3 3a1 1 0 0 0 .33.21a.94.94 0 0 0 .76 0a1 1 0 0 0 .33-.21l3-3a1 1 0 0 0 0-1.42ZM19 13a1 1 0 0 0-1 1v.38l-1.48-1.48a2.79 2.79 0 0 0-3.93 0l-.7.7l-2.48-2.48a2.85 2.85 0 0 0-3.93 0L4 12.6V7a1 1 0 0 1 1-1h8a1 1 0 0 0 0-2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-5a1 1 0 0 0-1-1ZM5 20a1 1 0 0 1-1-1v-3.57l2.9-2.9a.79.79 0 0 1 1.09 0l3.17 3.17l4.3 4.3Zm13-1a.89.89 0 0 1-.18.53L13.31 15l.7-.7a.77.77 0 0 1 1.1 0L18 17.21Z"/>
+            </svg>
+            <span class="text-sm font-medium cursor-pointer">save</span>
+          </div>
+        </ng-template>
+      </button>
+    </div>
+  </div>
+  <div class="flex flex-col items-center p-4 overflow-hidden">
+    <div
+      #preview
+      class="preview p-4 flex flex-col justify-evenly"
+      [class]="backgroundClass"
+      [previewAutoscale]="48"
+    >
+      <div
+        *ngFor="let value of values"
+        class="p-2 bg-gray-800 rounded-md w-full"
+      >
+        <div class="flex gap-1 mb-2">
+          <span class="btn-toolbar close"></span>
+          <span class="btn-toolbar minimize"></span>
+          <span class="btn-toolbar zoom"></span>
+        </div>
+        <pre class="p-2 text-sm text-white"><code [innerHTML]="value"></code></pre>
+      </div>
+    </div>
+  </div>
+</div>
