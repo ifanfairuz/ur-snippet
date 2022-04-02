@@ -2,12 +2,20 @@
 
   <div *ngIf="backdropShow" (click)="closeBackdrop()" class="absolute h-screen w-screen bg-transparent" style="z-index: 1;"></div>
 
-  <div class="flex flex-col items-center p-3 md:pb-4 md:pt-6 shadow-lg md:shadow-none">
+  <div class="flex flex-row justify-between md:flex-col md:justify-start items-center p-3 md:pb-4 md:pt-6 shadow-lg md:shadow-none">
     <div class="flex gap-2 items-center">
       <img src="/assets/logo-u.png" alt="logo" class="h-8 md:h-16">
       <h1 class="text-lg md:text-3xl font-medium opacity-70">Ur Snippet</h1>
     </div>
-    <p class="opacity-50 hidden md:flex">lets share your snippets to the universe</p>
+    <p class="opacity-50 mb-2 hidden md:flex border-b border-gray-400 pb-2 px-4">lets share your snippets to the universe</p>
+    <div class="flex gap-2">
+      <a href="https://github.com/ifanfairuz/ur-snippet" target="_blank" class="text-[2rem] text-gray-700 hover:text-[#1ba9f0]">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path fill="currentColor" d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5C64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9c26.4 39.1 77.9 32.5 104 26c5.7-23.5 17.9-44.5 34.7-60.8c-140.6-25.2-199.2-111-199.2-213c0-49.5 16.3-95 48.3-131.7c-20.4-60.5 1.9-112.3 4.9-120c58.1-5.2 118.5 41.6 123.2 45.3c33-8.9 70.7-13.6 112.9-13.6c42.4 0 80.2 4.9 113.5 13.9c11.3-8.6 67.3-48.8 121.3-43.9c2.9 7.7 24.7 58.3 5.5 118c32.4 36.8 48.9 82.7 48.9 132.3c0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9c177.1-59.7 304.6-227 304.6-424.1c0-247.2-200.4-447.3-447.5-447.3z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/ifan-fairuz-4659611a0" target="_blank" class="text-[2rem] text-gray-700 hover:text-[#1ba9f0]">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M9.429 8.969h3.714v1.85c.535-1.064 1.907-2.02 3.968-2.02c3.951 0 4.889 2.118 4.889 6.004V22h-4v-6.312c0-2.213-.535-3.461-1.897-3.461c-1.889 0-2.674 1.345-2.674 3.46V22h-4V8.969ZM2.57 21.83h4V8.799h-4V21.83ZM7.143 4.55a2.53 2.53 0 0 1-.753 1.802a2.573 2.573 0 0 1-1.82.748a2.59 2.59 0 0 1-1.818-.747A2.548 2.548 0 0 1 2 4.55c0-.677.27-1.325.753-1.803A2.583 2.583 0 0 1 4.571 2c.682 0 1.336.269 1.819.747c.482.478.753 1.126.753 1.803Z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
   </div>
 
   <div class="p-4 lg:pb-10 lg:pt-5 lg:flex-1 lg:container lg:mx-auto">
